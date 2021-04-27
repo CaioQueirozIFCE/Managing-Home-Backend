@@ -14,7 +14,7 @@ class CreateWalletsTable extends Migration
     public function up()
     {
         Schema::create('wallets', function (Blueprint $table) {
-            $table->id()->primary()->autoIncrement();
+            $table->id();
             $table->string('descricao')->max('100');
             $table->float('valor');
             $table->tinyInteger('tipo')->default(0);
