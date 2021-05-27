@@ -20,11 +20,9 @@ class CreateWalletsTable extends Migration
             $table->tinyInteger('tipo')->default(0);
             $table->tinyInteger('frequencia')->default(0);
             $table->date('data');
-            $table->timestamps();//retirar timestamp
             $table->unsignedBigInteger('id_user');
 
             $table->foreign('id_user')->references('id')->on('users');
-
             
         });
     }

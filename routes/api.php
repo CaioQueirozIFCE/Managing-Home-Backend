@@ -2,21 +2,22 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
-use App\Http\Controllers\Auth\LoginController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\WalletController;
 use Illuminate\Support\Facades\Route;
-
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
-Route::prefix('/')->group(function () {
-    // Route::post('login', [LoginController::class, 'authenticate'])->name('login');
+/* rotas de autenticação */
+Route::prefix('/auth')->group(function(){
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/register-user', [AuthController::class, 'createAccount']);
+    Route::get('/refresh', [AuthController::class, 'refresh']);
+    Route::post('/logout', [AuthController::class, 'logout']);
+    
 });
-Route::post('auth/login', [AuthController::class, 'login']);
-Route::post('/users', [UserController::class, 'store']);
+/* rotas de uso */
 Route::group([
     'middleware' => ['apiJwt']
 ], function () {
     Route::get('/users', [UserController::class, 'index']);
+    Route::post('/list-wallet', [WalletController::class, 'showListWallet']);
+    Route::post('/store', [WalletController::class, 'store']);
+    Route::post('/update', [WalletController::class, 'update']);
 });
